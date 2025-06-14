@@ -1,0 +1,6 @@
+
+{
+  "name": "KPresent Architect",
+  "description": "A web application to interface with an AI agent for generating and customizing KPresent files. Users can input topics, receive an AI-generated KPresent, and interactively edit content, themes, and speaker notes before conceptually downloading a .PPTX file.",
+  "requestFramePermissions": []
+}
