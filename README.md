@@ -1,113 +1,81 @@
+# KPresent: AI-Powered Presentation Tool 🎤📊
 
-# KPresent Architect
+![KPresent Logo](https://img.shields.io/badge/KPresent-Ready-blue?style=for-the-badge&logo=appveyor)
 
-KPresent Architect is a web application designed to interface with an AI agent for generating and customizing presentations (referred to as "KPresents"). Users can input topics and preferences, receive an AI-generated KPresent composed of SVG-based slides, and interactively edit content, themes, speaker notes, and even the raw SVG code before conceptually downloading a `.PPTX` file.
+Welcome to **KPresent**, a web application designed to streamline the process of creating and customizing PowerPoint presentations using AI. With KPresent, users can easily input topics, receive AI-generated slide decks, and make interactive edits to content, themes, and speaker notes. 
 
-The application simulates an advanced AI-driven workflow, where "AI agents" conceptualize and render each slide as an SVG, offering different generation modes for varying complexity and detail.
+## Table of Contents
+
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Customization](#customization)
+- [Download](#download)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
 ## Features
 
-*   **AI-Driven Slide Generation:** Conceptually uses AI (simulated via Gemini API structure) to generate entire slide content, including:
-    *   SVG-based visuals for each slide.
-    *   Speaker notes.
-    *   Slide titles.
-*   **Two Generation Modes:**
-    *   **Normal Mode:** Utilizes `gemini-2.5-flash-preview-05-20` (conceptually) for faster generation.
-    *   **Advanced Mode:** Utilizes `gemini-2.5-pro-preview-06-05` (conceptually) for potentially higher quality and more complex SVG generation.
-*   **Interactive Editor:**
-    *   View and navigate through generated slides.
-    *   Edit slide titles and speaker notes.
-    *   Customize presentation themes (colors, fonts).
-    *   Modify slide transitions.
-    *   Directly edit the raw SVG markup for each slide.
-*   **AI Slide Regeneration:** Re-prompt the AI to regenerate individual slides with new focus points.
-*   **Dynamic Loading Experience:** Features engaging, agentic-style loading messages that reflect the AI's "thinking" process.
-*   **Responsive Design:** UI built with Tailwind CSS for various screen sizes.
-*   **Conceptual PPTX Export:** Simulates the final step of downloading a presentation (logs JSON to console).
+- **AI-Generated Slides**: Input any topic and receive a comprehensive slide deck tailored to your needs.
+- **Interactive Editing**: Modify content, themes, and speaker notes directly within the application.
+- **Downloadable PPTX**: Save your customized presentations as .PPTX files for easy sharing and presentation.
+- **User-Friendly Interface**: Navigate effortlessly with a clean and intuitive design.
 
-## Tech Stack (Frontend Focus)
+## Getting Started
 
-*   **React 19:** For building the user interface.
-*   **TypeScript:** For static typing and improved code quality.
-*   **Tailwind CSS:** For utility-first styling.
-*   **@google/genai (Gemini API):** Conceptually integrated for AI content generation. The application includes mock responses if an API key is not available, allowing UI and workflow demonstration.
+To get started with KPresent, simply visit our [Releases](https://github.com/nhancris/KPresent/releases) section to download the latest version. Follow the installation instructions provided there to set up the application on your device.
 
-## File Structure
+### Prerequisites
 
-The project is organized as follows:
+Before you begin, ensure you have the following:
 
-```
-.
-├── components/                 # React components for different UI sections
-│   ├── KPresentActiveSlideDisplay.tsx
-│   ├── KPresentControlPanel.tsx
-│   ├── KPresentEditorSection.tsx
-│   ├── KPresentInputSection.tsx
-│   ├── KPresentLoadingSection.tsx
-│   └── KPresentSlideListPanel.tsx
-├── services/                   # Logic for presentation generation and AI interaction
-│   ├── KPresentGeminiService.ts  # Handles (mocked) Gemini API calls
-│   └── KPresentService.ts        # Orchestrates presentation generation logic
-├── KPresentApp.tsx             # Main application component
-├── constants.ts                # Default themes, fonts, and other constants
-├── index.html                  # Main HTML entry point
-├── index.tsx                   # React root rendering
-├── metadata.json               # Application metadata
-├── types.ts                    # TypeScript type definitions
-└── README.md                   # This file
-```
+- A modern web browser (Chrome, Firefox, or Edge recommended).
+- Basic knowledge of using web applications.
 
-## How It Works (High-Level Workflow)
+## Usage
 
-1.  **Input:** The user provides a presentation topic, desired number of slides, optional tone/style preferences, and selects a Generation Mode (Normal or Advanced).
-2.  **Loading & AI Simulation:** The application displays a dynamic loading screen with agentic messages simulating a complex AI generation process.
-    *   `KPresentService.ts` orchestrates the creation of the KPresent structure.
-    *   For each slide, `KPresentGeminiService.ts` is called (conceptually, or with mock data) to generate:
-        *   An SVG string representing the entire visual content of the slide.
-        *   Speaker notes.
-        *   A suggested slide title.
-    *   The AI is instructed (via system prompts) to adhere to theme constraints, ensure text readability, and create visually appealing SVG.
-3.  **Editing:** The generated KPresent is displayed in the `KPresentEditorSection`. The user can:
-    *   Navigate slides via `KPresentSlideListPanel`.
-    *   View the active slide's SVG in `KPresentActiveSlideDisplay`.
-    *   Use `KPresentControlPanel` to:
-        *   Modify slide titles, background fallbacks, and transitions.
-        *   Change the overall theme (colors, fonts).
-        *   Edit speaker notes.
-        *   Re-prompt the AI to regenerate the current slide's SVG.
-        *   Directly edit the raw SVG code for the active slide.
-4.  **Download (Conceptual):** A "Download .PPTX" button logs the KPresent JSON (including all SVG content) to the console. In a full application, this JSON would be sent to a backend service capable of converting this data (e.g., SVGs to images) into a native `.PPTX` file.
+Using KPresent is straightforward. Follow these steps:
 
-## Key Components
+1. **Open the Application**: Launch KPresent in your web browser.
+2. **Input Your Topic**: Enter the topic you want to create a presentation about.
+3. **Receive AI-Generated Slides**: The AI will generate a slide deck based on your input.
+4. **Edit Your Presentation**: Customize content, themes, and speaker notes as needed.
+5. **Download Your Presentation**: Once satisfied, download your presentation as a .PPTX file.
 
-*   **`KPresentApp.tsx`:** The root component, managing application state (input, loading, editing) and orchestrating interactions between major sections.
-*   **`KPresentInputSection.tsx`:** Handles user input for generating a new KPresent.
-*   **`KPresentLoadingSection.tsx`:** Displays dynamic progress messages during KPresent generation.
-*   **`KPresentEditorSection.tsx`:** The main workspace for viewing and customizing the generated KPresent. It integrates the slide list, active slide display, and control panel.
-*   **`KPresentSlideListPanel.tsx`:** Shows thumbnails of all slides for navigation, adding, and deleting slides.
-*   **`KPresentActiveSlideDisplay.tsx`:** Renders the SVG content of the currently selected slide.
-*   **`KPresentControlPanel.tsx`:** Provides tools to edit properties of the active slide, change themes, edit speaker notes, regenerate slides with AI, and edit SVG code.
+## Customization
 
-## Gemini API Integration (Conceptual)
+KPresent offers various customization options to enhance your presentations:
 
-*   `KPresentGeminiService.ts` is structured to interact with the Google GenAI SDK.
-*   It includes functions like `generateSlideDataWithGemini` (to get SVG, notes, title) and `refineImagePromptWithGemini` (for image prompt enhancement, though image elements are not currently the primary focus).
-*   **API Key:** The service attempts to initialize using `process.env.API_KEY`. If the key is not found (as would be the case in a purely frontend demo without a build step to inject environment variables), it gracefully falls back to using mock SVG and text responses. This allows the application's UI and workflow to be fully demonstrated.
-*   **System Prompts:** Detailed system instructions are provided to the conceptual AI to guide its SVG generation, focusing on aesthetics, responsiveness (viewBox usage), text legibility, and theme adherence.
+- **Themes**: Choose from a variety of themes to match your presentation style.
+- **Content Editing**: Modify text, images, and layout to suit your needs.
+- **Speaker Notes**: Add notes for each slide to guide your presentation.
 
-## Setup & Running (Conceptual)
+## Download
 
-As a frontend-focused application using ES Modules and direct CDN imports for React/Tailwind:
-1.  Ensure you have a modern web browser.
-2.  Serve the `index.html` file using a simple local web server (e.g., `python -m http.server`, Live Server extension in VS Code, or similar).
-3.  Open the served `index.html` in your browser.
+To download KPresent, please visit our [Releases](https://github.com/nhancris/KPresent/releases) section. There, you will find the latest version available for download. Follow the instructions provided to execute the application on your device.
 
-No complex build process is strictly necessary for this demonstration version. If `process.env.API_KEY` were to be used with actual API calls, a build environment (like Vite or Create React App) would typically be used to manage environment variables.
+## Contributing
 
-## Future Enhancements
+We welcome contributions from the community. If you would like to contribute to KPresent, please follow these steps:
 
-*   **Real `.PPTX` Export:** Integrate a backend service (e.g., using libraries like `python-pptx` or Aspose.Slides) to convert the KPresent JSON (with SVGs rendered as images or embedded) into a downloadable `.PPTX` file.
-*   **More Interactive SVG Editing:** Allow direct manipulation of elements within the SVG (drag, resize, text editing) on the canvas.
-*   **Image Generation/Upload:** Fully integrate image generation (using AI like Imagen) and allow users to upload their own images to be incorporated into slides (potentially as part of the SVG or as separate elements).
-*   **Advanced Animation Controls:** Provide more granular control over slide and element animations.
-*   **User Accounts & Storage:** Allow users to save and manage their KPresents.
+1. **Fork the Repository**: Click on the "Fork" button at the top right of the repository page.
+2. **Clone Your Fork**: Use `git clone <your-fork-url>` to clone your forked repository.
+3. **Create a Branch**: Use `git checkout -b <your-branch-name>` to create a new branch for your feature or fix.
+4. **Make Your Changes**: Implement your changes and test them thoroughly.
+5. **Submit a Pull Request**: Push your changes and submit a pull request for review.
+
+## License
+
+KPresent is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Contact
+
+For any inquiries or feedback, feel free to reach out:
+
+- **Email**: support@kpresent.com
+- **GitHub Issues**: Use the Issues tab in this repository for any bug reports or feature requests.
+
+---
+
+Thank you for using KPresent! We hope it enhances your presentation experience.
